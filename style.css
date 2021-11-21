@@ -43,7 +43,7 @@ input[type="text"]{
 @media screen and (max-width: 460px) {
     .display
     {
-        padding-left: 5%;
+        padding-left: 6%;
     }
 }
 
