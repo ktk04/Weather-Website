@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+       <script src="https://use.fontawesome.com/c6c014359e.js"></script>
+       <link rel="stylesheet" href="path/to/font-mfizz/font-mfizz.css">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #121212" ;>
+    <div class="Greetings container-fluid h-150 mb-5 mt-100">
+        <div class="row text-center align-items-center h-100" >
+            <div class="col-12">
+                <div class="font-weight-bold" style="font-size: 50px; padding-top: 2%";>Weather</div>
+                <div class="font-weight-light" style="font-size:30px; padding-top: 2%";>Your Current Coordinates</div>
+                <button onclick="getLocation()" type="button" class="btn btn-dark btn-lg" style="margin-top: 2%;">Click Here</button>
+                <div id="demo"class="font-weight-bold" style="font-size:25px; padding-top: 1%; color:#6c63fe;";></p>
+            </div>
+    </div>
+    <div class="display row text-center align-items-center h-100">
+      <div class="col-12 align-items-center">
+        <h3 class="name align-items-center"></h3>
+        <h3 class="desc"></h3>
+        <h3 class="temp"></h3>
+      </div>
+    </div>
+    </div>
+    <script>
+        const x = document.getElementById("demo");
+        
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+          } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+        
+        function showPosition(position) {
+          x.innerHTML = "Latitude: " + position.coords.latitude + 
+          "<br>Longitude: " + position.coords.longitude;
+          var name=document.querySelector('.name')
+        var desc=document.querySelector('.desc')
+        var temp=document.querySelector('.temp')
+        fetch('http://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+position.coords.longitude+'&units=metric&APPID=cb30696893bba78383894e7ccf7c5ef1')
+.then(response => response.json())
+.then(data=>{
+var nameValue = data['name'];
+var tempValue = data['main']['temp'];
+var descValue = data['weather'][0]['description'];
+
+name.innerHTML="Location: "+ nameValue;
+temp.innerHTML="Temperature: "+tempValue+"°C";
+desc.innerHTML="Description: "+descValue;
+})
+.catch(err => {
+	console.error(err);
+});
+        }
+        
+        function showError(error) {
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              x.innerHTML = "User denied the request for Geolocation."
+              break;
+            case error.POSITION_UNAVAILABLE:
+              x.innerHTML = "Location information is unavailable."
+              break;
+            case error.TIMEOUT:
+              x.innerHTML = "The request to get user location timed out."
+              break;
+            case error.UNKNOWN_ERROR:
+              x.innerHTML = "An unknown error occurred."
+              break;
+          }
+        }
+        </script>
+
+
+        
+</body>
