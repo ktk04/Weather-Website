@@ -45,3 +45,18 @@ input[type="text"]{
     text-align: center;
     font-size: 25px;
 }
+
+.weather-icon{
+    padding-top: 5%;
+}
+img{
+    background-color: white;
+    border-radius: 25%;
+}
+
+@media screen and (max-width:400px){
+    img{
+        height:80px;
+        width: 80px;
+    }
+}
