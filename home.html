@@ -49,7 +49,7 @@
         var temp=document.querySelector('.temp')
         var humid=document.querySelector('.humid')
         let locationIcon = document.querySelector('.weather-icon');
-        fetch('http://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+position.coords.longitude+'&units=metric&APPID=cb30696893bba78383894e7ccf7c5ef1')
+        fetch('https://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+position.coords.longitude+'&units=metric&APPID=cb30696893bba78383894e7ccf7c5ef1')
 .then(response => response.json())
 .then(data=>{
 var nameValue = data['name'];
