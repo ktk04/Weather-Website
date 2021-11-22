@@ -26,6 +26,7 @@
         <h3 class="desc"></h3>
         <h3 class="temp"></h3>
         <h3 class="humid"></h3>
+        <div class="weather-icon"><img src="icons/unknown.png" /></div>
       </div>
     </div>
     </div>
@@ -47,18 +48,21 @@
         var desc=document.querySelector('.desc')
         var temp=document.querySelector('.temp')
         var humid=document.querySelector('.humid')
-        fetch('https://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+position.coords.longitude+'&units=metric&APPID=cb30696893bba78383894e7ccf7c5ef1')
+        let locationIcon = document.querySelector('.weather-icon');
+        fetch('http://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+position.coords.longitude+'&units=metric&APPID=cb30696893bba78383894e7ccf7c5ef1')
 .then(response => response.json())
 .then(data=>{
 var nameValue = data['name'];
 var tempValue = data['main']['temp'];
 var descValue = data['weather'][0]['description'];
 var humidValue= data['main']['humidity'];
+const {icon} = data.weather[0];
 
 name.innerHTML="Location: "+ nameValue;
 temp.innerHTML="Temperature: "+tempValue+"°C";
 desc.innerHTML="Description: "+descValue;
 humid.innerHTML="Humidity: "+humidValue;
+locationIcon.innerHTML = `<img src="icons/${icon}.png"/>`;
 })
 .catch(err => {
 	console.error(err);
@@ -81,8 +85,5 @@ humid.innerHTML="Humidity: "+humidValue;
               break;
           }
         }
-        </script>
-
-
-        
+        </script>        
 </body>
